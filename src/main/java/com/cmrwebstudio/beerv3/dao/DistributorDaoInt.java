@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.cmrwebstudio.beerv3.entity.Distributor;
 
-public interface DistributorDaoInterface {
+public interface DistributorDaoInt {
 
 	List<Distributor> fetchDistributors();
 

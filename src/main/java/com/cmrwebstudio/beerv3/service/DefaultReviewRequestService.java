@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cmrwebstudio.beerv3.dao.ReviewRequestDao;
+import com.cmrwebstudio.beerv3.dao.ReviewRequestDaoInt;
 import com.cmrwebstudio.beerv3.entity.ReviewRequest;
 import com.cmrwebstudio.beerv3.entity.Review;
 
@@ -14,7 +14,7 @@ import com.cmrwebstudio.beerv3.entity.Review;
 public class DefaultReviewRequestService implements ReviewRequestService {
 
 	@Autowired
-	private ReviewRequestDao reviewRequestDao;
+	private ReviewRequestDaoInt reviewRequestDaoInt;
 
 	@Transactional
 	@Override
@@ -27,12 +27,12 @@ public class DefaultReviewRequestService implements ReviewRequestService {
 		int rating = getReview(reviewRequest).getRating();
 		String review = getReview(reviewRequest).getReview();
 		System.out.println("DAO: beer name = "+beerName);
-		return reviewRequestDao.saveReview(beerId, beerName, reviewerName, rating, review);
+		return reviewRequestDaoInt.saveReview(beerId, beerName, reviewerName, rating, review);
 	}
 
 	// Returns Reviews of a beer by beer ID
 	protected Review getReview(ReviewRequest reviewRequest) {
-		return reviewRequestDao.fetchReview(reviewRequest.getBeerId(), reviewRequest.getBeerName())
+		return reviewRequestDaoInt.fetchReview(reviewRequest.getBeerId(), reviewRequest.getBeerName())
 				.orElseThrow(() -> new NoSuchElementException("Review for beer with ID = "
 				+ reviewRequest.getBeerId()+ " was not found."));
 	}

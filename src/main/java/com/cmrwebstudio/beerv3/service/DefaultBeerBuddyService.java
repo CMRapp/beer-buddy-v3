@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cmrwebstudio.beerv3.dao.BeerBuddyDao;
+import com.cmrwebstudio.beerv3.dao.BeerBuddyDaoInt;
 import com.cmrwebstudio.beerv3.entity.Beer;
 import com.cmrwebstudio.beerv3.entity.Breweries;
 import com.cmrwebstudio.beerv3.entity.CatDescription;
@@ -23,7 +23,7 @@ public class DefaultBeerBuddyService implements BeerBuddyService {
 
 	
 	@Autowired
-	private BeerBuddyDao beerBuddyDao;
+	private BeerBuddyDaoInt beerBuddyDaoInt;
 	
 	@Transactional(readOnly = true)
 	@Override
@@ -32,7 +32,7 @@ public class DefaultBeerBuddyService implements BeerBuddyService {
 	public List<Beer> fetchBeers(Category category) {
 		log.info("The fetchBeers method was called with category = {}", category);
 		
-		List<Beer> beers = beerBuddyDao.fetchBeers(category);
+		List<Beer> beers = beerBuddyDaoInt.fetchBeers(category);
 		
 		if(beers.isEmpty() ) {
 			String msg = String.format("No beers found with category = %s", category);
@@ -49,7 +49,7 @@ public class DefaultBeerBuddyService implements BeerBuddyService {
 	public List<Breweries> fetchBrewery(int brewery) {
 		log.info("The fetchBrewery method was called with id = {}", brewery);
 		
-		List<Breweries> breweries = beerBuddyDao.fetchBrewery(brewery);
+		List<Breweries> breweries = beerBuddyDaoInt.fetchBrewery(brewery);
 		System.out.println(brewery);
 		if(breweries.isEmpty() ) {
 			String msg = String.format("No breweries found with ID = %s", brewery);
@@ -65,7 +65,7 @@ public class DefaultBeerBuddyService implements BeerBuddyService {
 	public List<CatDescription> fetchDescription(Category category) {
 		log.info("The fetchDescription method was called with desc = {}", category);
 		
-		List<CatDescription> description = beerBuddyDao.fetchDescription(category);
+		List<CatDescription> description = beerBuddyDaoInt.fetchDescription(category);
 		
 		if(description.isEmpty() ) {
 			String msg = String.format("No descriptions found found with category = %s", category);
@@ -81,7 +81,7 @@ public class DefaultBeerBuddyService implements BeerBuddyService {
 	public List<Beer> fetchBeerDetails(int beerId) {
 		log.info("The fetchDescription method was called with desc = {}", beerId);
 		
-		List<Beer> details = beerBuddyDao.fetchBeerDetails(beerId);
+		List<Beer> details = beerBuddyDaoInt.fetchBeerDetails(beerId);
 		
 		if(details.isEmpty() ) {
 			String msg = String.format("No beers found  with ID = %s", beerId);
@@ -97,7 +97,7 @@ public class DefaultBeerBuddyService implements BeerBuddyService {
 	public List<Review> fetchReviews(int beerId) {
 			log.info("The fetchReviews method was called with beerID = {}", beerId);
 			
-			List<Review> review = beerBuddyDao.fetchReviews(beerId);
+			List<Review> review = beerBuddyDaoInt.fetchReviews(beerId);
 			
 			if(review.isEmpty() ) {
 				String msg = String.format("No reviews found with beerId = %s", beerId);
